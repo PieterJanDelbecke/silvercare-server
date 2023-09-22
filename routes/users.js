@@ -4,22 +4,21 @@ const router = express.Router();
 const { sequelize, User } = require("../models");
 
 router.get("/", (req, res) => {
-  res.send("GET user");
+  console.log("#### GET All Users ####");
+  res.json({ message: "GET ALL Users" });
 });
 
 router.post("/new", async (req, res) => {
-  res.send("##### POST User #####");
-  console.log(req.body);
+  console.log("#### POST New User ####");
+
   const { firstName, lastName } = req.body;
 
   try {
     const user = await User.create({ firstName, lastName });
-    console.log("USER", user);
-    res.end();
-    // res.json(user);
+    res.json(user);
   } catch (error) {
     console.error(error);
-    return res.status(500).json(error);
+    res.res.status(500).json({ error: "Something went wrong" });
   }
 });
 
