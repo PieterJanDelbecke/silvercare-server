@@ -2,13 +2,21 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-	async up(queryInterface, Sequelize) {
-		await queryInterface.addColumn("Users", "email", {
-			type: Sequelize.STRING,
-		});
+	up: (queryInterface, Sequelize) => {
+		return Promise.all([
+			queryInterface.addColumn("Users", "email", {
+				type: Sequelize.STRING,
+			}),
+			queryInterface.addColumn("Users", "password", {
+				type: Sequelize.STRING,
+			}),
+		]);
 	},
 
-	async down(queryInterface, Sequelize) {
-		await queryInterface.removeColumn("Users", "email");
+	down: (queryInterface, Sequelize) => {
+		return Promise.all([
+			queryInterface.removeColumn("Users", "email"),
+			queryInterface.removeColumn("Users", "password"),
+		]);
 	},
 };

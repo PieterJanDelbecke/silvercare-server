@@ -12,13 +12,15 @@ router.get("/", (req, res) => {
 router.post("/signup", async (req, res) => {
 	console.log("#### POST New User SignUp #######");
 
-	const { firstName, lastName } = req.body;
+	const { firstName, lastName, email, password } = req.body;
 
 	console.log("firstName", firstName);
 	console.log("lastName", lastName);
+	console.log("email", email);
+	console.log("password", password);
 
 	try {
-		const user = await User.create({ firstName, lastName });
+		const user = await User.create({ firstName, lastName, email, password });
 		res.json(user);
 	} catch (error) {
 		console.error(error);
