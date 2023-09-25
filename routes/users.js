@@ -9,10 +9,13 @@ router.get("/", (req, res) => {
 	res.json({ message: "GET ALL Users" });
 });
 
-router.post("/new", async (req, res) => {
-	console.log("#### POST New User #######");
+router.post("/signup", async (req, res) => {
+	console.log("#### POST New User SignUp #######");
 
 	const { firstName, lastName } = req.body;
+
+	console.log("firstName", firstName);
+	console.log("lastName", lastName);
 
 	try {
 		const user = await User.create({ firstName, lastName });
