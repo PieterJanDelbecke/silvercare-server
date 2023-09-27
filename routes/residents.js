@@ -14,14 +14,32 @@ router.post("/new", async (req, res) => {
 });
 
 router.post("/hobbies", async (req, res) => {
-	const { userId, name } = req.body;
+	const { residentId, name } = req.body;
 
-	console.log("userId: ", userId);
+	console.log("residentId: ", residentId);
 	console.log("name", name);
 
 	try {
-		const hobby = await Hobby.create({ userId, name });
+		const hobby = await Hobby.create({ residentId, name });
 		res.json(hobby);
+	} catch (error) {
+		console.log(error);
+	}
+});
+
+router.get("/resident", async (req, res) => {
+	try {
+		const resident = await Resident.findOne({
+			where: {
+				firstName: "Alice",
+			},
+			include: [
+				{
+					model: Hobby,
+				},
+			],
+		});
+		res.json(resident);
 	} catch (error) {
 		console.log(error);
 	}
