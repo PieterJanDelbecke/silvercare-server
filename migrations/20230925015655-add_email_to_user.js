@@ -10,6 +10,9 @@ module.exports = {
 			queryInterface.addColumn("Users", "password", {
 				type: Sequelize.STRING,
 			}),
+			queryInterface.addColumn("Users", "role", {
+				type: Sequelize.STRING,
+			}),
 		]);
 	},
 
@@ -17,6 +20,7 @@ module.exports = {
 		return Promise.all([
 			queryInterface.removeColumn("Users", "email"),
 			queryInterface.removeColumn("Users", "password"),
+			queryInterface.removeColumn("Users", "role"),
 		]);
 	},
 };

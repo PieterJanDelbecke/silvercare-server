@@ -10,8 +10,10 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const userRouter = require("./routes/users");
+const residentRouter = require("./routes/residents");
 
 app.use("/users", userRouter);
+app.use("/resident", residentRouter);
 
 app.listen(PORT, () => {
 	console.log(`server is running on port ${PORT}`);
