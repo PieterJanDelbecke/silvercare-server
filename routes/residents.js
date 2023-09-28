@@ -5,6 +5,7 @@ const { Resident, Hobby } = require("../models");
 
 router.post("/new", async (req, res) => {
 	const { firstName, lastName } = req.body;
+
 	try {
 		const resident = await Resident.create({ firstName, lastName });
 		res.json(resident);
@@ -32,6 +33,7 @@ router.get("/resident", async (req, res) => {
 		const resident = await Resident.findOne({
 			where: {
 				firstName: "Alice",
+				lastName: "xxx",
 			},
 			include: [
 				{
@@ -40,6 +42,23 @@ router.get("/resident", async (req, res) => {
 			],
 		});
 		res.json(resident);
+	} catch (error) {
+		console.log(error);
+	}
+});
+
+router.get("/residents", async (req, res) => {
+	try {
+		const residents = await Resident.findAll({
+			attributes: ["firstName", ["lastName", "Last Name"]],
+			include: [
+				{
+					model: Hobby,
+					attributes: ["residentId", ["name", "game"]],
+				},
+			],
+		});
+		res.json(residents);
 	} catch (error) {
 		console.log(error);
 	}
