@@ -11,12 +11,16 @@ module.exports = (sequelize, DataTypes) => {
 			Resident.hasMany(models.Hobby, {
 				foreignKey: "residentId",
 			});
+			Resident.hasOne(models.ResidentsFamily, {
+				foreignKey: "residentId",
+			});
 		}
 	}
 	Resident.init(
 		{
 			firstName: DataTypes.STRING,
 			lastName: DataTypes.STRING,
+			DOB: DataTypes.DATE,
 		},
 		{
 			sequelize,

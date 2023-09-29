@@ -1,14 +1,33 @@
 const express = require("express");
 const router = express.Router();
 
-const { Resident, Hobby } = require("../models");
+const { Resident, Hobby, ResidentsFamily } = require("../models");
 
 router.post("/new", async (req, res) => {
-	const { firstName, lastName } = req.body;
+	const { firstName, lastName, DOB } = req.body;
 
 	try {
-		const resident = await Resident.create({ firstName, lastName });
+		const resident = await Resident.create({ firstName, lastName, DOB });
 		res.json(resident);
+	} catch (error) {
+		console.error(error);
+	}
+});
+
+router.post("/family", async (req, res) => {
+	const { residentId, sons, daughters, brothers, sisters, motherDeceased, fatherDeceased } = req.body;
+
+	try {
+		const result = await ResidentsFamily.create({
+			residentId,
+			sons,
+			daughters,
+			brothers,
+			sisters,
+			motherDeceased,
+			fatherDeceased,
+		});
+		res.json(result);
 	} catch (error) {
 		console.error(error);
 	}
