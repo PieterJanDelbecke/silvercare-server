@@ -15,14 +15,20 @@ router.post("/new", async (req, res) => {
 });
 
 router.post("/hobbies", async (req, res) => {
-	const { residentId, name } = req.body;
+	console.log("####  HOBBIES  #####");
+	const { residentId, names } = req.body;
 
 	console.log("residentId: ", residentId);
-	console.log("name", name);
+	console.log("name", names);
+
+	const hobbies = [];
+	for (const name of names) {
+		hobbies.push({ residentId, name });
+	}
 
 	try {
-		const hobby = await Hobby.create({ residentId, name });
-		res.json(hobby);
+		const result = await Hobby.bulkCreate(hobbies);
+		res.json(result);
 	} catch (error) {
 		console.log(error);
 	}
@@ -33,7 +39,6 @@ router.get("/resident", async (req, res) => {
 		const resident = await Resident.findOne({
 			where: {
 				firstName: "Alice",
-				lastName: "xxx",
 			},
 			include: [
 				{
