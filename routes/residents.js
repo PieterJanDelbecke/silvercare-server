@@ -15,6 +15,9 @@ router.post("/new", async (req, res) => {
 });
 
 router.post("/family", async (req, res) => {
+	console.log("#### REQ.BODY ####", req.body);
+	// res.end();
+
 	const { residentId, sons, daughters, brothers, sisters, motherDeceased, fatherDeceased } = req.body;
 
 	try {
@@ -35,22 +38,23 @@ router.post("/family", async (req, res) => {
 
 router.post("/hobbies", async (req, res) => {
 	console.log("####  HOBBIES  #####");
-	const { residentId, names } = req.body;
+	const { residentId, hobbies } = req.body;
 
 	console.log("residentId: ", residentId);
-	console.log("name", names);
+	console.log("hobbies", hobbies);
 
-	const hobbies = [];
-	for (const name of names) {
-		hobbies.push({ residentId, name });
-	}
+	// const hobbies = [];
+	// for (const name of names) {
+	// 	hobbies.push({ residentId, name });
+	// }
 
-	try {
-		const result = await Hobby.bulkCreate(hobbies);
-		res.json(result);
-	} catch (error) {
-		console.log(error);
-	}
+	// try {
+	// 	const result = await Hobby.bulkCreate(hobbies);
+	// 	res.json(result);
+	// } catch (error) {
+	// 	console.log(error);
+	// }
+	res.end();
 });
 
 router.get("/resident", async (req, res) => {
